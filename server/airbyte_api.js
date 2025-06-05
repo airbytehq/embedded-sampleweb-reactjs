@@ -11,8 +11,8 @@ async function getAccessToken() {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                client_id: process.env.VITE_AIRBYTE_CLIENT_ID,
-                client_secret: process.env.VITE_AIRBYTE_CLIENT_SECRET,
+                client_id: process.env.AIRBYTE_CLIENT_ID,
+                client_secret: process.env.AIRBYTE_CLIENT_SECRET,
                 "grant-type": "client_credentials"
             })
         });
@@ -48,8 +48,8 @@ async function generateWidgetToken(externalUserId) {
             },
             body: JSON.stringify({
                 externalUserId: externalUserId,
-                organizationId: process.env.VITE_AIRBYTE_ORGANIZATION_ID,
-                allowedOrigin: process.env.VITE_ALLOWED_ORIGIN,
+                organizationId: process.env.AIRBYTE_ORGANIZATION_ID,
+                allowedOrigin: process.env.ALLOWED_ORIGIN,
             })
         });
 
