@@ -204,8 +204,9 @@ vercel --prod
 ### Troubleshooting Deployment
 If you encounter runtime errors during deployment:
 - Ensure all serverless functions use `module.exports` (not `export default`)
-- Verify `vercel.json` uses `@vercel/node` runtime
+- Remove any `vercel.json` file - Vercel auto-detects Node.js functions
 - Check that environment variables are properly configured in Vercel dashboard
+- Verify all API functions are in the `/api` directory with `.js` extension
 
 ## 🛠️ Development
 
