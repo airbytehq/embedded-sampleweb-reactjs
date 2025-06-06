@@ -142,8 +142,8 @@ export function PasswordProtection({ onPasswordCorrect }) {
           background: white;
           border-radius: 24px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-          padding: 3rem;
-          max-width: 480px;
+          padding: 4rem;
+          max-width: 600px;
           width: 100%;
           text-align: center;
           position: relative;
