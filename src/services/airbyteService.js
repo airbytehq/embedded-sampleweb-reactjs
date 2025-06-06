@@ -131,15 +131,19 @@ export function loadAirbyteWidget() {
   return new Promise((resolve, reject) => {
     // Check if already loaded
     if (window.AirbyteEmbeddedWidget) {
+      console.log('Airbyte widget already loaded');
       resolve();
       return;
     }
     
     // Check if script is already being loaded
-    if (document.querySelector('script[src*="airbyte-embedded-widget"]')) {
+    const existingScript = document.querySelector('script[src*="airbyte-embedded-widget"]');
+    if (existingScript) {
+      console.log('Airbyte widget script already exists, waiting for load...');
       // Wait for it to load
       const checkLoaded = () => {
         if (window.AirbyteEmbeddedWidget) {
+          console.log('Airbyte widget loaded from existing script');
           resolve();
         } else {
           setTimeout(checkLoaded, 100);
@@ -149,16 +153,30 @@ export function loadAirbyteWidget() {
       return;
     }
     
+    console.log('Loading Airbyte Embedded Widget script...');
+    
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@airbyte-embedded/airbyte-embedded-widget@0.4.2';
+    // Use the exact version from package.json
+    script.src = 'https://cdn.jsdelivr.net/npm/@airbyte-embedded/airbyte-embedded-widget@0.4.2/dist/index.js';
     script.async = true;
+    script.crossOrigin = 'anonymous';
     
     script.onload = () => {
-      console.log('Airbyte Embedded Widget loaded successfully');
-      resolve();
+      console.log('Airbyte Embedded Widget script loaded');
+      // Give it a moment to initialize
+      setTimeout(() => {
+        if (window.AirbyteEmbeddedWidget) {
+          console.log('AirbyteEmbeddedWidget is available');
+          resolve();
+        } else {
+          console.error('AirbyteEmbeddedWidget not found after script load');
+          reject(new Error('AirbyteEmbeddedWidget not available after script load'));
+        }
+      }, 100);
     };
     
-    script.onerror = () => {
+    script.onerror = (error) => {
+      console.error('Failed to load Airbyte widget script:', error);
       reject(new Error('Failed to load Airbyte Embedded Widget'));
     };
     

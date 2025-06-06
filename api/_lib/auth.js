@@ -50,7 +50,26 @@ export function clearAuthCookie(res) {
  * @param {Object} req - Request object
  */
 export function setCorsHeaders(res, req) {
-    const allowedOrigin = process.env.SONAR_ALLOWED_ORIGIN || 'http://localhost:5173';
+    // Get the origin from the request
+    const requestOrigin = req.headers.origin;
+    
+    // Define allowed origins
+    const allowedOrigins = [
+        'https://sonar-demoapp.vercel.app',
+        'https://sonar-demoapp.vercel.app/',
+        'http://localhost:5173',
+        'http://localhost:3000',
+        process.env.SONAR_ALLOWED_ORIGIN
+    ].filter(Boolean); // Remove any undefined values
+    
+    // Check if the request origin is allowed
+    const allowedOrigin = allowedOrigins.includes(requestOrigin) 
+        ? requestOrigin 
+        : (process.env.SONAR_ALLOWED_ORIGIN || 'http://localhost:5173');
+    
+    console.log('[CORS] Request origin:', requestOrigin);
+    console.log('[CORS] Allowed origins:', allowedOrigins);
+    console.log('[CORS] Using origin:', allowedOrigin);
     
     res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
     res.setHeader('Access-Control-Allow-Credentials', 'true');
