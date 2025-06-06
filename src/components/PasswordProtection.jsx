@@ -130,15 +130,11 @@ export function PasswordProtection({ onPasswordCorrect }) {
       <style jsx>{`
         .password-protection-content {
           margin: 2rem auto;
-          background: white;
-          border-radius: 24px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
           padding: 4rem;
           width: 50%;
           min-width: 600px;
           text-align: center;
           position: relative;
-          overflow: hidden;
         }
 
 
