@@ -128,12 +128,24 @@ export function closeAirbyteWidget() {
  * @returns {Promise<void>}
  */
 export function loadAirbyteWidget() {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     // Check if already loaded
     if (window.AirbyteEmbeddedWidget) {
       console.log('Airbyte widget already loaded');
       resolve();
       return;
+    }
+    
+    // Try to import from the installed npm package first
+    try {
+      console.log('Attempting to import Airbyte widget from npm package...');
+      const { AirbyteEmbeddedWidget } = await import('@airbyte-embedded/airbyte-embedded-widget');
+      window.AirbyteEmbeddedWidget = AirbyteEmbeddedWidget;
+      console.log('Successfully imported AirbyteEmbeddedWidget from npm package');
+      resolve();
+      return;
+    } catch (importError) {
+      console.warn('Failed to import from npm package, falling back to CDN:', importError);
     }
     
     // Check if script is already being loaded
@@ -153,16 +165,34 @@ export function loadAirbyteWidget() {
       return;
     }
     
-    console.log('Loading Airbyte Embedded Widget script...');
+    console.log('Loading Airbyte Embedded Widget script from CDN...');
     
     const script = document.createElement('script');
-    // Use the exact version from package.json
-    script.src = 'https://cdn.jsdelivr.net/npm/@airbyte-embedded/airbyte-embedded-widget@0.4.2/dist/index.js';
+    // Try multiple CDN URLs as fallback
+    const cdnUrls = [
+      'https://cdn.jsdelivr.net/npm/@airbyte-embedded/airbyte-embedded-widget@0.4.2',
+      'https://unpkg.com/@airbyte-embedded/airbyte-embedded-widget@0.4.2',
+      'https://cdn.jsdelivr.net/npm/@airbyte-embedded/airbyte-embedded-widget@latest'
+    ];
+    
+    let currentUrlIndex = 0;
+    
+    const tryNextUrl = () => {
+      if (currentUrlIndex >= cdnUrls.length) {
+        reject(new Error('Failed to load Airbyte Embedded Widget from all CDN sources'));
+        return;
+      }
+      
+      script.src = cdnUrls[currentUrlIndex];
+      console.log(`Trying CDN URL ${currentUrlIndex + 1}/${cdnUrls.length}:`, script.src);
+      currentUrlIndex++;
+    };
+    
     script.async = true;
     script.crossOrigin = 'anonymous';
     
     script.onload = () => {
-      console.log('Airbyte Embedded Widget script loaded');
+      console.log('Airbyte Embedded Widget script loaded from:', script.src);
       // Give it a moment to initialize
       setTimeout(() => {
         if (window.AirbyteEmbeddedWidget) {
@@ -170,16 +200,20 @@ export function loadAirbyteWidget() {
           resolve();
         } else {
           console.error('AirbyteEmbeddedWidget not found after script load');
-          reject(new Error('AirbyteEmbeddedWidget not available after script load'));
+          // Try next URL
+          tryNextUrl();
         }
-      }, 100);
+      }, 200);
     };
     
     script.onerror = (error) => {
-      console.error('Failed to load Airbyte widget script:', error);
-      reject(new Error('Failed to load Airbyte Embedded Widget'));
+      console.error('Failed to load Airbyte widget script from:', script.src, error);
+      // Try next URL
+      tryNextUrl();
     };
     
+    // Start with the first URL
+    tryNextUrl();
     document.head.appendChild(script);
   });
 }
