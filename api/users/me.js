@@ -5,7 +5,7 @@ const { findUser } = require('../_lib/db');
  * Get current user endpoint
  * GET /api/users/me
  */
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

@@ -201,6 +201,12 @@ npm run build
 vercel --prod
 ```
 
+### Troubleshooting Deployment
+If you encounter runtime errors during deployment:
+- Ensure all serverless functions use `module.exports` (not `export default`)
+- Verify `vercel.json` uses `@vercel/node` runtime
+- Check that environment variables are properly configured in Vercel dashboard
+
 ## 🛠️ Development
 
 ### Project Structure
@@ -229,7 +235,7 @@ Example:
 ```javascript
 const { setCorsHeaders } = require('./_lib/auth');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     if (setCorsHeaders(res, req)) return;
     
     if (req.method !== 'GET') {

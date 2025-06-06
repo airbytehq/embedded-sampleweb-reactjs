@@ -4,7 +4,7 @@ const { setCorsHeaders } = require('./_lib/auth');
  * Health check endpoint
  * GET /api/health
  */
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

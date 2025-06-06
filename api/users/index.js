@@ -5,7 +5,7 @@ const { findUser, addUser } = require('../_lib/db');
  * Create/login user endpoint
  * POST /api/users
  */
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

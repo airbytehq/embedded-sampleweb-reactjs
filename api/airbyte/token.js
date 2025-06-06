@@ -6,7 +6,7 @@ const { generateWidgetToken } = require('../_lib/airbyte');
  * Generate Airbyte widget token endpoint
  * POST /api/airbyte/token
  */
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled
