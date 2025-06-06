@@ -23,6 +23,8 @@ export default async function handler(req, res) {
 
     console.log('[/api/airbyte/token] Cookies:', cookies);
     console.log('[/api/airbyte/token] User email from cookie:', userEmail);
+    console.log('[/api/airbyte/token] Request origin:', req.headers.origin);
+    console.log('[/api/airbyte/token] Allowed origin env var:', process.env.SONAR_ALLOWED_ORIGIN);
 
     if (!userEmail) {
         console.log('[/api/airbyte/token] No user email in cookies');
@@ -51,7 +53,7 @@ export default async function handler(req, res) {
             cacheUser(userEmail, user);
         }
 
-        const widgetToken = await generateWidgetToken(user.email);
+        const widgetToken = await generateWidgetToken(user.email, req.headers.origin);
         res.status(200).json({ token: widgetToken });
     } catch (error) {
         console.error('Error generating widget token:', error);

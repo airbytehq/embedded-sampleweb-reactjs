@@ -39,9 +39,24 @@ async function getAccessToken() {
  * @param {string} externalUserId - The ID of the external user
  * @returns {Promise<string>} The widget token
  */
-async function generateWidgetToken(externalUserId) {
+async function generateWidgetToken(externalUserId, requestOrigin = null) {
     try {
         const accessToken = await getAccessToken();
+        
+        // Use the request origin as fallback if environment variable is not set
+        let allowedOrigin = process.env.SONAR_ALLOWED_ORIGIN;
+        if (!allowedOrigin && requestOrigin) {
+            allowedOrigin = requestOrigin;
+            console.log('[Airbyte] Using request origin as fallback:', allowedOrigin);
+        }
+        
+        const requestBody = {
+            externalUserId: externalUserId,
+            organizationId: process.env.SONAR_AIRBYTE_ORGANIZATION_ID,
+            allowedOrigin: allowedOrigin,
+        };
+        
+        console.log('[Airbyte] Widget token request:', requestBody);
 
         const response = await fetch('https://api.airbyte.com/v1/embedded/widget_token', {
             method: 'POST',
@@ -50,19 +65,17 @@ async function generateWidgetToken(externalUserId) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                externalUserId: externalUserId,
-                organizationId: process.env.SONAR_AIRBYTE_ORGANIZATION_ID,
-                allowedOrigin: process.env.SONAR_ALLOWED_ORIGIN,
-            })
+            body: JSON.stringify(requestBody)
         });
 
         if (!response.ok) {
             const errorData = await response.json();
+            console.error('[Airbyte] Widget token error response:', errorData);
             throw new Error(`Failed to get widget token: ${errorData.message || response.statusText}`);
         }
 
         const data = await response.json();
+        console.log('[Airbyte] Widget token response:', data);
         return data.token;
     } catch (error) {
         console.error('Error generating widget token:', error);

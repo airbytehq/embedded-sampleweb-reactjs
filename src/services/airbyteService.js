@@ -73,19 +73,35 @@ export function openAirbyteWidget(token) {
       currentWidget = null;
     }
     
-    // Create new widget instance
+    console.log('Opening Airbyte widget with token:', token);
+    
+    // Create new widget instance with minimal configuration
+    // Following the official Airbyte documentation format
     currentWidget = new window.AirbyteEmbeddedWidget({
-      token: token,
+      token: token
     });
     
-    // Add event listeners to clean up when widget is closed
+    console.log('Widget instance created:', currentWidget);
+    
+    // Add event listeners if available
     if (currentWidget.on) {
       currentWidget.on('close', () => {
+        console.log('Widget close event triggered');
         currentWidget = null;
+      });
+      
+      currentWidget.on('error', (error) => {
+        console.error('Widget error event:', error);
+      });
+      
+      currentWidget.on('load', () => {
+        console.log('Widget load event triggered');
       });
     }
     
+    // Open the widget
     currentWidget.open();
+    console.log('Widget open() called');
     
   } catch (error) {
     console.error('Error opening Airbyte widget:', error);
