@@ -1,11 +1,14 @@
 import { useAuth } from './contexts/AuthContext';
+import { usePassword } from './contexts/PasswordContext';
 import { useToast } from './hooks/useToast';
 import { LoginForm } from './components/LoginForm';
 import { UserProfile } from './components/UserProfile';
+import { PasswordProtection } from './components/PasswordProtection';
 import { ToastContainer } from './components/Toast';
 
 function App() {
   const { isAuthenticated } = useAuth();
+  const { isPasswordAuthenticated, passwordRequired, isLoading } = usePassword();
   const { toasts, showSuccess, showError, showInfo, removeToast } = useToast();
 
   const handleLoginSuccess = (isNewUser) => {
@@ -23,6 +26,35 @@ function App() {
   const handleConnectError = (error) => {
     showError(error || 'Failed to connect data. Please try again.');
   };
+
+  const handlePasswordSuccess = () => {
+    showSuccess('Access granted successfully!');
+  };
+
+  // Show loading state while checking password authentication
+  if (isLoading) {
+    return (
+      <div className="container">
+        <div className="card">
+          <div className="text-center">
+            <div className="spinner" />
+            <p className="text-muted mt-2">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show password protection if required and user is not authenticated
+  if (passwordRequired && !isPasswordAuthenticated) {
+    return (
+      <div className="container">
+        <div className="card">
+          <PasswordProtection onPasswordCorrect={handlePasswordSuccess} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

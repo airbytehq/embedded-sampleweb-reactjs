@@ -136,6 +136,11 @@ SONAR_ALLOWED_ORIGIN=https://sonar-demoapp.vercel.app  # Production
 SONAR_ALLOWED_ORIGIN=http://localhost:5173             # Development
 ```
 
+#### Optional Password Protection
+```bash
+SONAR_WEBAPP_PASSWORD=your_secure_password  # Optional: Protect entire app with password
+```
+
 ### Vercel Deployment
 
 For production deployment, configure these environment variables in your [Vercel dashboard](https://vercel.com/airbyte-dev-rel/sonar-demoapp/settings/environment-variables).
@@ -195,6 +200,28 @@ Uses a hybrid approach for data persistence:
 - **CORS Configuration**: Restricts cross-origin requests
 - **Environment Variables**: Sensitive data not in code
 - **Input Validation**: Email validation and sanitization
+- **Optional Password Protection**: Protect entire application with a password
+
+### Password Protection
+
+The application supports optional password protection to restrict access to the entire webapp. When enabled, users must enter the correct password before they can access any part of the application.
+
+**To enable password protection:**
+1. Set the `SONAR_WEBAPP_PASSWORD` environment variable to your desired password
+2. Deploy or restart your application
+
+**Features:**
+- Password is stored securely in environment variables
+- Authentication persists for 24 hours via HTTP-only cookies
+- Automatic fallback when password protection is disabled
+- Clean, user-friendly password entry interface
+
+**To disable password protection:**
+- Remove or leave empty the `SONAR_WEBAPP_PASSWORD` environment variable
+
+**API Endpoints:**
+- `POST /api/auth/password` - Verify password and set authentication cookie
+- `GET /api/auth/check` - Check current password authentication status
 
 ## 🚀 Deployment
 
