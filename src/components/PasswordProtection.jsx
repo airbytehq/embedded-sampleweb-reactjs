@@ -52,7 +52,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
             />
           </div>
           <h1 className="title">Sonar Demo</h1>
-          <p className="subtitle">Airbyte Embedded Integration</p>
+
         </div>
 
         {/* Security Notice */}
@@ -139,7 +139,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
         .password-protection-card {
           width: 100%;
-          max-width: 420px;
+          max-width: 480px;
           background: white;
           border-radius: 16px;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
