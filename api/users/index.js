@@ -1,11 +1,11 @@
-const { setCorsHeaders, setAuthCookie } = require('../_lib/auth');
-const { findUser, addUser } = require('../_lib/db');
+import { setCorsHeaders, setAuthCookie } from '../_lib/auth.js';
+import { findUser, addUser } from '../_lib/db.js';
 
 /**
  * Create/login user endpoint
  * POST /api/users
  */
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

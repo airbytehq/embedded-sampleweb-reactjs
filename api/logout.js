@@ -1,10 +1,10 @@
-const { setCorsHeaders, clearAuthCookie } = require('./_lib/auth');
+import { setCorsHeaders, clearAuthCookie } from './_lib/auth.js';
 
 /**
  * User logout endpoint
  * POST /api/logout
  */
-module.exports = function handler(req, res) {
+export default function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

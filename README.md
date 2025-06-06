@@ -203,10 +203,11 @@ vercel --prod
 
 ### Troubleshooting Deployment
 If you encounter runtime errors during deployment:
-- Ensure all serverless functions use `module.exports` (not `export default`)
+- Ensure all serverless functions use ES module syntax (`export default` and `import`)
 - Remove any `vercel.json` file - Vercel auto-detects Node.js functions
 - Check that environment variables are properly configured in Vercel dashboard
 - Verify all API functions are in the `/api` directory with `.js` extension
+- Ensure `package.json` contains `"type": "module"` for ES module support
 
 ### Troubleshooting "Failed to fetch" Errors
 If you see "Failed to fetch" errors in the browser:
@@ -241,9 +242,9 @@ If you see "Failed to fetch" errors in the browser:
 
 Example:
 ```javascript
-const { setCorsHeaders } = require('./_lib/auth');
+import { setCorsHeaders } from './_lib/auth.js';
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     if (setCorsHeaders(res, req)) return;
     
     if (req.method !== 'GET') {

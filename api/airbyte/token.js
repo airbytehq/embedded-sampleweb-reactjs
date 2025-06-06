@@ -1,12 +1,12 @@
-const { setCorsHeaders, parseCookies } = require('../_lib/auth');
-const { findUser } = require('../_lib/db');
-const { generateWidgetToken } = require('../_lib/airbyte');
+import { setCorsHeaders, parseCookies } from '../_lib/auth.js';
+import { findUser } from '../_lib/db.js';
+import { generateWidgetToken } from '../_lib/airbyte.js';
 
 /**
  * Generate Airbyte widget token endpoint
  * POST /api/airbyte/token
  */
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     // Handle CORS
     if (setCorsHeaders(res, req)) {
         return; // OPTIONS request handled

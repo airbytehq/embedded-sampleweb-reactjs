@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // For serverless functions, we'll use /tmp directory which persists during function execution
 // Note: Data will be lost between cold starts, but this allows us to test the conversion
@@ -104,7 +104,7 @@ function deleteUser(email) {
     return false;
 }
 
-module.exports = {
+export {
     findUser,
     addUser,
     getAllUsers,

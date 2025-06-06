@@ -70,6 +70,6 @@ async function generateWidgetToken(externalUserId) {
     }
 }
 
-module.exports = {
+export {
     generateWidgetToken
 };
