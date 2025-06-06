@@ -41,7 +41,8 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
   return (
     <>
-      <div className="password-protection-content">
+      <div className="password-protection-container">
+        <div className="password-protection-content">
         {/* Header Section with Logo */}
         <div className="password-header">
           <div className="logo-container">
@@ -126,14 +127,21 @@ export function PasswordProtection({ onPasswordCorrect }) {
           </p>
         </div>
       </div>
+      </div>
 
       <style jsx>{`
-        .password-protection-content {
-          margin: 2rem auto;
-          padding: 4rem;
+        .password-protection-container {
           width: 50%;
+          margin: 2rem auto;
+          padding: 2rem;
           text-align: center;
           position: relative;
+        }
+
+        .password-protection-content {
+          width: 70%;
+          margin: 0 auto;
+          padding: 2rem;
         }
 
 
@@ -314,10 +322,15 @@ export function PasswordProtection({ onPasswordCorrect }) {
         }
 
         @media (max-width: 768px) {
-          .password-protection-content {
+          .password-protection-container {
             width: 90%;
-            padding: 2rem;
+            padding: 1rem;
             margin: 1rem auto;
+          }
+
+          .password-protection-content {
+            width: 100%;
+            padding: 1rem;
           }
 
           .octavia-logo {
