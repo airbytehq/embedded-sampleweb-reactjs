@@ -140,7 +140,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
         }
 
         .password-protection-content {
-          width: 50%;
+          width: 70%;
           margin: 0 auto;
           padding: 3rem;
           background: white;
@@ -332,7 +332,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
         @media (max-width: 1024px) {
           .password-protection-content {
-            width: 60%;
+            width: 75%;
           }
         }
 
