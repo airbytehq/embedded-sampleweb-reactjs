@@ -208,6 +208,13 @@ If you encounter runtime errors during deployment:
 - Check that environment variables are properly configured in Vercel dashboard
 - Verify all API functions are in the `/api` directory with `.js` extension
 
+### Troubleshooting "Failed to fetch" Errors
+If you see "Failed to fetch" errors in the browser:
+- Ensure all frontend API calls use relative URLs (`/api/...` not `http://localhost:3001/api/...`)
+- Check browser developer tools Network tab for actual HTTP status codes
+- Verify CORS headers are properly set in serverless functions
+- Confirm environment variables are configured in Vercel dashboard
+
 ## 🛠️ Development
 
 ### Project Structure

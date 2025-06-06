@@ -102,7 +102,7 @@ function removeUserFromStorage() {
 // API functions for backend communication
 async function createOrLoginUser(email) {
   try {
-    const response = await fetch('http://localhost:3001/api/users', {
+    const response = await fetch('/api/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +163,18 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      // Call backend logout to clear HTTP-only cookie
+      await fetch('/api/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+    } catch (error) {
+      console.error('Error calling logout API:', error);
+      // Continue with local logout even if API call fails
+    }
+    
     dispatch({ type: AUTH_ACTIONS.LOGOUT });
     removeUserFromStorage();
   };

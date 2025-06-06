@@ -24,7 +24,7 @@ async function getAccessToken() {
 export async function generateWidgetToken(externalUserId) {
   try {
     // Call the backend API to generate the widget token
-    const response = await fetch('http://localhost:3001/api/airbyte/token', {
+    const response = await fetch('/api/airbyte/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
