@@ -40,38 +40,37 @@ export function PasswordProtection({ onPasswordCorrect }) {
   };
 
   return (
-    <>
-      <div className="password-protection-container">
-        <div className="password-protection-content">
-        {/* Header Section with Logo */}
-        <div className="password-header">
-          <div className="logo-container">
+    <div className="password-protection-container">
+      <div className="password-protection-card">
+        {/* Header */}
+        <div className="header-section">
+          <div className="logo-wrapper">
             <img 
               src="/octavia-sonar.png" 
               alt="Octavia Sonar" 
-              className="octavia-logo"
+              className="logo"
             />
           </div>
-          <h1 className="app-title">Sonar Demo</h1>
-          <p className="app-subtitle">Airbyte Embedded Integration</p>
+          <h1 className="title">Sonar Demo</h1>
+          <p className="subtitle">Airbyte Embedded Integration</p>
         </div>
 
-        {/* Access Required Section */}
-        <div className="access-section">
-          <div className="access-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z" fill="currentColor"/>
+        {/* Security Notice */}
+        <div className="security-notice">
+          <div className="lock-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/>
             </svg>
           </div>
-          <h2 className="access-title">Secure Access Required</h2>
-          <p className="access-description">
-            This application is password protected. Please enter the access code to continue.
+          <h2 className="security-title">Secure Access Required</h2>
+          <p className="security-description">
+            Enter your access code to continue to the application
           </p>
         </div>
 
-        {/* Password Form */}
-        <form onSubmit={handleSubmit} className="password-form">
-          <div className="input-group">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="form-section">
+          <div className="input-wrapper">
             <div className="input-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" fill="currentColor"/>
@@ -79,7 +78,6 @@ export function PasswordProtection({ onPasswordCorrect }) {
             </div>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="password-input"
@@ -91,28 +89,28 @@ export function PasswordProtection({ onPasswordCorrect }) {
           </div>
           
           {error && (
-            <div className="error-message">
+            <div className="error-alert">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
               </svg>
-              {error}
+              <span>{error}</span>
             </div>
           )}
           
           <button
             type="submit"
-            className={`access-button ${isLoading ? 'loading' : ''}`}
+            className={`submit-button ${isLoading ? 'loading' : ''}`}
             disabled={isLoading || !password.trim()}
           >
             {isLoading ? (
               <>
-                <div className="button-spinner"></div>
-                <span>Verifying Access...</span>
+                <div className="spinner"></div>
+                <span>Verifying...</span>
               </>
             ) : (
               <>
                 <span>Access Application</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" fill="currentColor"/>
                 </svg>
               </>
@@ -121,12 +119,11 @@ export function PasswordProtection({ onPasswordCorrect }) {
         </form>
 
         {/* Footer */}
-        <div className="password-footer">
+        <div className="footer-section">
           <p className="footer-text">
             Powered by <strong>Airbyte Embedded</strong>
           </p>
         </div>
-      </div>
       </div>
 
       <style jsx>{`
@@ -135,190 +132,176 @@ export function PasswordProtection({ onPasswordCorrect }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 2rem;
-          background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+          padding: 20px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        .password-protection-content {
-          width: 70%;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 4rem;
+        .password-protection-card {
+          width: 100%;
+          max-width: 420px;
           background: white;
-          border-radius: 32px;
-          box-shadow: 0 25px 80px rgba(0, 0, 0, 0.08);
+          border-radius: 16px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+        }
+
+        .header-section {
+          padding: 40px 40px 30px 40px;
           text-align: center;
+          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+          border-bottom: 1px solid #e2e8f0;
         }
 
-        .password-header {
-          margin-bottom: 4rem;
+        .logo-wrapper {
+          margin-bottom: 20px;
         }
 
-        .logo-container {
-          margin-bottom: 2.5rem;
+        .logo {
+          width: 64px;
+          height: 64px;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .octavia-logo {
-          width: 120px;
-          height: 120px;
-          border-radius: 30px;
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-          transition: transform 0.3s ease;
-        }
-
-        .octavia-logo:hover {
-          transform: scale(1.05);
-        }
-
-        .app-title {
-          font-size: 3rem;
-          font-weight: 800;
+        .title {
+          font-size: 28px;
+          font-weight: 700;
           color: #1a202c;
-          margin: 1.5rem 0 0.75rem 0;
+          margin: 0 0 8px 0;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          line-height: 1.1;
-          white-space: nowrap;
         }
 
-        .app-subtitle {
-          font-size: 1.25rem;
-          color: #718096;
+        .subtitle {
+          font-size: 16px;
+          color: #64748b;
           margin: 0;
           font-weight: 500;
-          white-space: nowrap;
         }
 
-        .access-section {
-          margin-bottom: 4rem;
-          padding: 3rem;
-          background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-          border-radius: 24px;
-          border: 1px solid #e2e8f0;
+        .security-notice {
+          padding: 30px 40px;
+          text-align: center;
+          border-bottom: 1px solid #f1f5f9;
         }
 
-        .access-icon {
+        .lock-icon {
           color: #667eea;
-          margin-bottom: 2rem;
+          margin-bottom: 16px;
         }
 
-        .access-title {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #2d3748;
-          margin: 0 0 1.5rem 0;
-          line-height: 1.2;
-          white-space: nowrap;
+        .security-title {
+          font-size: 20px;
+          font-weight: 600;
+          color: #334155;
+          margin: 0 0 12px 0;
         }
 
-        .access-description {
-          color: #4a5568;
+        .security-description {
+          font-size: 15px;
+          color: #64748b;
           margin: 0;
-          line-height: 1.6;
-          font-size: 1.125rem;
-          max-width: 600px;
-          margin: 0 auto;
+          line-height: 1.5;
         }
 
-        .password-form {
-          margin-bottom: 4rem;
-          max-width: 500px;
-          margin-left: auto;
-          margin-right: auto;
+        .form-section {
+          padding: 30px 40px;
         }
 
-        .input-group {
+        .input-wrapper {
           position: relative;
-          margin-bottom: 2.5rem;
+          margin-bottom: 20px;
         }
 
         .input-icon {
           position: absolute;
-          left: 1.5rem;
+          left: 16px;
           top: 50%;
           transform: translateY(-50%);
-          color: #a0aec0;
+          color: #94a3b8;
           z-index: 2;
         }
 
         .password-input {
           width: 100%;
-          padding: 1.5rem 1.5rem 1.5rem 4rem;
+          padding: 16px 16px 16px 48px;
           border: 2px solid #e2e8f0;
-          border-radius: 20px;
-          font-size: 1.25rem;
-          transition: all 0.3s ease;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 500;
           background: white;
           box-sizing: border-box;
-          font-weight: 500;
+          transition: all 0.2s ease;
         }
 
         .password-input:focus {
           outline: none;
           border-color: #667eea;
-          box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+          box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .password-input:disabled {
-          background: #f7fafc;
+          background: #f8fafc;
           cursor: not-allowed;
         }
 
-        .error-message {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          color: #e53e3e;
-          font-size: 1rem;
-          margin-bottom: 2rem;
-          padding: 1.25rem;
-          background: #fed7d7;
-          border-radius: 16px;
-          border: 1px solid #feb2b2;
-          font-weight: 500;
+        .password-input::placeholder {
+          color: #94a3b8;
         }
 
-        .access-button {
+        .error-alert {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #dc2626;
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 20px;
+          padding: 12px 16px;
+          background: #fef2f2;
+          border: 1px solid #fecaca;
+          border-radius: 8px;
+        }
+
+        .submit-button {
           width: 100%;
-          padding: 1.5rem 2.5rem;
+          padding: 16px 24px;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
           border: none;
-          border-radius: 20px;
-          font-size: 1.25rem;
-          font-weight: 700;
+          border-radius: 12px;
+          font-size: 16px;
+          font-weight: 600;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.2s ease;
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 1rem;
-          position: relative;
-          overflow: hidden;
-          min-height: 64px;
-          white-space: nowrap;
+          gap: 8px;
+          min-height: 52px;
         }
 
-        .access-button:hover:not(:disabled) {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        .submit-button:hover:not(:disabled) {
+          transform: translateY(-1px);
+          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .access-button:disabled {
+        .submit-button:disabled {
           opacity: 0.7;
           cursor: not-allowed;
           transform: none;
         }
 
-        .access-button.loading {
+        .submit-button.loading {
           pointer-events: none;
         }
 
-        .button-spinner {
-          width: 20px;
-          height: 20px;
+        .spinner {
+          width: 16px;
+          height: 16px;
           border: 2px solid rgba(255, 255, 255, 0.3);
           border-top: 2px solid white;
           border-radius: 50%;
@@ -330,117 +313,48 @@ export function PasswordProtection({ onPasswordCorrect }) {
           100% { transform: rotate(360deg); }
         }
 
-        .password-footer {
-          padding-top: 3rem;
-          border-top: 1px solid #e2e8f0;
-          margin-top: 2rem;
+        .footer-section {
+          padding: 20px 40px 30px 40px;
+          text-align: center;
+          background: #f8fafc;
+          border-top: 1px solid #f1f5f9;
         }
 
         .footer-text {
-          color: #718096;
-          font-size: 1rem;
+          font-size: 14px;
+          color: #64748b;
           margin: 0;
-          font-weight: 500;
-        }
-
-        @media (max-width: 1200px) {
-          .password-protection-content {
-            width: 80%;
-            padding: 3rem;
-          }
-        }
-
-        @media (max-width: 1024px) {
-          .password-protection-content {
-            width: 85%;
-            padding: 3rem;
-          }
-
-          .app-title {
-            font-size: 2.5rem;
-          }
-
-          .access-title {
-            font-size: 1.75rem;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .password-protection-container {
-            padding: 1rem;
-            min-height: 100vh;
-          }
-
-          .password-protection-content {
-            width: 90%;
-            padding: 2.5rem;
-            border-radius: 24px;
-          }
-
-          .octavia-logo {
-            width: 100px;
-            height: 100px;
-          }
-
-          .app-title {
-            font-size: 2.25rem;
-            white-space: normal;
-          }
-
-          .app-subtitle {
-            white-space: normal;
-          }
-
-          .access-title {
-            font-size: 1.5rem;
-            white-space: normal;
-          }
-
-          .password-input {
-            padding: 1.25rem 1.25rem 1.25rem 3.5rem;
-            font-size: 1.125rem;
-          }
-
-          .access-button {
-            padding: 1.25rem 2rem;
-            font-size: 1.125rem;
-            min-height: 56px;
-          }
         }
 
         @media (max-width: 480px) {
-          .password-protection-content {
-            width: 95%;
-            padding: 2rem;
+          .password-protection-container {
+            padding: 16px;
           }
 
-          .password-header {
-            margin-bottom: 3rem;
+          .password-protection-card {
+            max-width: 100%;
           }
 
-          .access-section {
-            margin-bottom: 3rem;
-            padding: 2rem;
+          .header-section,
+          .security-notice,
+          .form-section {
+            padding-left: 24px;
+            padding-right: 24px;
           }
 
-          .password-form {
-            margin-bottom: 3rem;
+          .footer-section {
+            padding: 16px 24px 24px 24px;
           }
 
-          .octavia-logo {
-            width: 80px;
-            height: 80px;
+          .title {
+            font-size: 24px;
           }
 
-          .app-title {
-            font-size: 2rem;
-          }
-
-          .access-title {
-            font-size: 1.25rem;
+          .security-title {
+            font-size: 18px;
           }
         }
       `}</style>
-    </>
+    </div>
   );
 }
