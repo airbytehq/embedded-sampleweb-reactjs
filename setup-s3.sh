@@ -13,9 +13,9 @@ source server/.env
 
 # Check if required variables are set
 echo "Checking required environment variables..."
-REQUIRED_VARS=("AIRBYTE_CLIENT_ID" "AIRBYTE_CLIENT_SECRET" "AIRBYTE_ORGANIZATION_ID" 
-               "AWS_ACCESS_KEY" "AWS_SECRET_ACCESS_KEY" "S3_BUCKET" 
-               "S3_BUCKET_REGION" "S3_BUCKET_PREFIX")
+REQUIRED_VARS=("SONAR_AIRBYTE_CLIENT_ID" "SONAR_AIRBYTE_CLIENT_SECRET" "SONAR_AIRBYTE_ORGANIZATION_ID" 
+               "SONAR_AWS_ACCESS_KEY" "SONAR_AWS_SECRET_ACCESS_KEY" "SONAR_S3_BUCKET" 
+               "SONAR_S3_BUCKET_REGION" "SONAR_S3_BUCKET_PREFIX")
 
 for var in "${REQUIRED_VARS[@]}"; do
   if [ -z "${!var}" ]; then
@@ -34,8 +34,8 @@ TOKEN_RESPONSE=$(curl -sX POST \
   'https://api.airbyte.com/v1/applications/token' \
   -H 'Content-Type: application/json' \
   -d "{
-    \"client_id\": \"${AIRBYTE_CLIENT_ID}\",
-    \"client_secret\": \"${AIRBYTE_CLIENT_SECRET}\",
+    \"client_id\": \"${SONAR_AIRBYTE_CLIENT_ID}\",
+    \"client_secret\": \"${SONAR_AIRBYTE_CLIENT_SECRET}\",
     \"grant-type\": \"client_credentials\"
   }")
 
@@ -56,14 +56,14 @@ CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.com/v1/config_templates/connec
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
     -d "{
       \"destinationName\": \"S3-embedded\", 
-      \"organizationId\": \"${AIRBYTE_ORGANIZATION_ID}\", 
+      \"organizationId\": \"${SONAR_AIRBYTE_ORGANIZATION_ID}\",
       \"destinationActorDefinitionId\": \"4816b78f-1489-44c1-9060-4b19d5fa9362\",
       \"destinationConfiguration\": {
-        \"access_key_id\": \"${AWS_ACCESS_KEY}\",
-        \"secret_access_key\": \"${AWS_SECRET_ACCESS_KEY}\",
-        \"s3_bucket_name\": \"${S3_BUCKET}\",
-        \"s3_bucket_path\": \"${S3_BUCKET_PREFIX}\",
-        \"s3_bucket_region\": \"${S3_BUCKET_REGION}\",
+        \"access_key_id\": \"${SONAR_AWS_ACCESS_KEY}\",
+        \"secret_access_key\": \"${SONAR_AWS_SECRET_ACCESS_KEY}\",
+        \"s3_bucket_name\": \"${SONAR_S3_BUCKET}\",
+        \"s3_bucket_path\": \"${SONAR_S3_BUCKET_PREFIX}\",
+        \"s3_bucket_region\": \"${SONAR_S3_BUCKET_REGION}\",
         \"format\": {
             \"format_type\": \"CSV\",
             \"compression\": {

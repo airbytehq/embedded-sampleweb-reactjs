@@ -26,7 +26,7 @@ app.use(cookieParser());
 
 // CORS configuration for React frontend
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGIN || 'http://localhost:5173',
+    origin: process.env.SONAR_ALLOWED_ORIGIN || 'http://localhost:5173',
     credentials: true
 }));
 
@@ -123,13 +123,13 @@ app.post('/api/airbyte/token', async (req, res) => {
 app.listen(port, () => {
     console.log(`Backend server running at http://localhost:${port}`);
     console.log('Environment variables loaded:');
-    console.log('ALLOWED_ORIGIN:', process.env.ALLOWED_ORIGIN);
-    console.log('AIRBYTE_ORGANIZATION_ID:', process.env.AIRBYTE_ORGANIZATION_ID);
-    console.log('AIRBYTE_CLIENT_ID:', process.env.AIRBYTE_CLIENT_ID ? '***' : 'not set');
-    console.log('AIRBYTE_CLIENT_SECRET:', process.env.AIRBYTE_CLIENT_SECRET ? '***' : 'not set');
-    console.log('AWS_ACCESS_KEY:', process.env.AWS_ACCESS_KEY ? '***' : 'not set');
-    console.log('AWS_SECRET_ACCESS_KEY:', process.env.AWS_SECRET_ACCESS_KEY ? '***' : 'not set');
-    console.log('S3_BUCKET:', process.env.S3_BUCKET);
-    console.log('S3_BUCKET_REGION:', process.env.S3_BUCKET_REGION);
-    console.log('S3_BUCKET_PREFIX:', process.env.S3_BUCKET_PREFIX);
+    console.log('SONAR_ALLOWED_ORIGIN:', process.env.SONAR_ALLOWED_ORIGIN);
+    console.log('SONAR_AIRBYTE_ORGANIZATION_ID:', process.env.SONAR_AIRBYTE_ORGANIZATION_ID);
+    console.log('SONAR_AIRBYTE_CLIENT_ID:', process.env.SONAR_AIRBYTE_CLIENT_ID ? '***' : 'not set');
+    console.log('SONAR_AIRBYTE_CLIENT_SECRET:', process.env.SONAR_AIRBYTE_CLIENT_SECRET ? '***' : 'not set');
+    console.log('SONAR_AWS_ACCESS_KEY:', process.env.SONAR_AWS_ACCESS_KEY ? '***' : 'not set');
+    console.log('SONAR_AWS_SECRET_ACCESS_KEY:', process.env.SONAR_AWS_SECRET_ACCESS_KEY ? '***' : 'not set');
+    console.log('SONAR_S3_BUCKET:', process.env.SONAR_S3_BUCKET);
+    console.log('SONAR_S3_BUCKET_REGION:', process.env.SONAR_S3_BUCKET_REGION);
+    console.log('SONAR_S3_BUCKET_PREFIX:', process.env.SONAR_S3_BUCKET_PREFIX);
 });
