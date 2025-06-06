@@ -40,7 +40,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
   };
 
   return (
-    <div className="password-protection-container">
+    <>
       <div className="password-protection-content">
         {/* Header Section with Logo */}
         <div className="password-header">
@@ -128,17 +128,8 @@ export function PasswordProtection({ onPasswordCorrect }) {
       </div>
 
       <style jsx>{`
-        .password-protection-container {
-          min-height: 100vh;
-          background: #f8fafc;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 2rem;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-        }
-
         .password-protection-content {
+          margin: 2rem auto;
           background: white;
           border-radius: 24px;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
@@ -335,14 +326,11 @@ export function PasswordProtection({ onPasswordCorrect }) {
         }
 
         @media (max-width: 768px) {
-          .password-protection-container {
-            padding: 1rem;
-          }
-
           .password-protection-content {
             width: 90%;
             min-width: 320px;
             padding: 2rem;
+            margin: 1rem auto;
           }
 
           .octavia-logo {
@@ -355,6 +343,6 @@ export function PasswordProtection({ onPasswordCorrect }) {
           }
         }
       `}</style>
-    </div>
+    </>
   );
 }
