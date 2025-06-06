@@ -150,15 +150,6 @@ export function PasswordProtection({ onPasswordCorrect }) {
           overflow: hidden;
         }
 
-        .password-protection-content::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 4px;
-          background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-        }
 
         .password-header {
           margin-bottom: 2.5rem;
