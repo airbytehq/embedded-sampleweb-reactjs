@@ -1,5 +1,6 @@
 import { setCorsHeaders, parseCookies } from '../_lib/auth.js';
 import { findUser } from '../_lib/db.js';
+import { getCachedUser, cacheUser } from '../_lib/userCache.js';
 
 /**
  * Get current user endpoint
@@ -24,9 +25,15 @@ export default function handler(req, res) {
     }
 
     try {
-        const user = findUser(userEmail);
+        // Check cache first, then database
+        let user = getCachedUser(userEmail) || findUser(userEmail);
         if (!user) {
             return res.status(401).json({ error: 'User not found' });
+        }
+
+        // Cache the user if found in database but not in cache
+        if (!getCachedUser(userEmail)) {
+            cacheUser(userEmail, user);
         }
 
         res.status(200).json(user);

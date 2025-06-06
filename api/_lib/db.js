@@ -48,7 +48,11 @@ function saveUsers(users) {
  */
 function findUser(email) {
     const users = loadUsers();
-    return users.find(user => user.email === email) || null;
+    console.log('[DB] findUser - All users:', users);
+    console.log('[DB] findUser - Looking for email:', email);
+    const user = users.find(user => user.email === email) || null;
+    console.log('[DB] findUser - Found user:', user);
+    return user;
 }
 
 /**

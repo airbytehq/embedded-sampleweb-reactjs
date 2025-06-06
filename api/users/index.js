@@ -1,5 +1,6 @@
 import { setCorsHeaders, setAuthCookie } from '../_lib/auth.js';
 import { findUser, addUser } from '../_lib/db.js';
+import { cacheUser, getCachedUser } from '../_lib/userCache.js';
 
 /**
  * Create/login user endpoint
@@ -24,15 +25,21 @@ export default async function handler(req, res) {
     }
 
     try {
-        // Check if user already exists
-        const existingUser = findUser(email);
+        // Check cache first, then database
+        let existingUser = getCachedUser(email) || findUser(email);
         if (existingUser) {
+            // Cache the user if found in database but not in cache
+            if (!getCachedUser(email)) {
+                cacheUser(email, existingUser);
+            }
             setAuthCookie(res, email);
             console.log(`[/api/users] Status: 200 - Existing user logged in: ${email}`);
             return res.status(200).json(existingUser);
         }
 
         const newUser = addUser(email);
+        // Cache the new user
+        cacheUser(email, newUser);
         setAuthCookie(res, email);
         console.log(`[/api/users] Status: 201 - New user created: ${email}`);
         res.status(201).json(newUser);

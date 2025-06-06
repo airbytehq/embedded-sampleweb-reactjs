@@ -162,9 +162,20 @@ For production deployment, configure these environment variables in your [Vercel
 
 ## 🗄️ Database
 
-Currently uses a simple file-based JSON database stored in `/tmp` directory during serverless function execution. 
+Uses a hybrid approach for data persistence:
 
-**Note**: Data persists only during function warm state. For production use, consider upgrading to:
+### In-Memory Cache (`api/_lib/userCache.js`)
+- **Primary storage** for active user sessions
+- Persists during serverless function warm state
+- Automatically caches users from database lookups
+- Provides fast access for authenticated operations
+
+### File-based Database (`api/_lib/db.js`)
+- **Fallback storage** in `/tmp` directory
+- Used when cache misses occur
+- Provides persistence during function execution
+
+**Note**: For production use, upgrade to:
 - **Vercel KV** (Redis-based, recommended)
 - **Vercel Postgres** (for relational data)
 - **External database** (MongoDB, PostgreSQL, etc.)
