@@ -139,36 +139,40 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
         .password-protection-card {
           width: 100%;
-          max-width: 480px;
+          max-width: 420px;
           background: white;
-          border-radius: 16px;
+          border-radius: 24px;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
           overflow: hidden;
+          aspect-ratio: 1;
+          display: flex;
+          flex-direction: column;
         }
 
         .header-section {
-          padding: 40px 40px 30px 40px;
+          padding: 32px 32px 24px 32px;
           text-align: center;
           background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
           border-bottom: 1px solid #e2e8f0;
+          flex-shrink: 0;
         }
 
         .logo-wrapper {
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .logo {
-          width: 64px;
-          height: 64px;
+          width: 56px;
+          height: 56px;
           border-radius: 12px;
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .title {
-          font-size: 28px;
+          font-size: 24px;
           font-weight: 700;
           color: #1a202c;
-          margin: 0 0 8px 0;
+          margin: 0;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -183,37 +187,42 @@ export function PasswordProtection({ onPasswordCorrect }) {
         }
 
         .security-notice {
-          padding: 30px 40px;
+          padding: 24px 32px;
           text-align: center;
           border-bottom: 1px solid #f1f5f9;
+          flex-shrink: 0;
         }
 
         .lock-icon {
           color: #667eea;
-          margin-bottom: 16px;
+          margin-bottom: 12px;
         }
 
         .security-title {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 600;
           color: #334155;
-          margin: 0 0 12px 0;
+          margin: 0 0 8px 0;
         }
 
         .security-description {
-          font-size: 15px;
+          font-size: 14px;
           color: #64748b;
           margin: 0;
-          line-height: 1.5;
+          line-height: 1.4;
         }
 
         .form-section {
-          padding: 30px 40px;
+          padding: 24px 32px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
         }
 
         .input-wrapper {
           position: relative;
-          margin-bottom: 20px;
+          margin-bottom: 16px;
         }
 
         .input-icon {
@@ -227,10 +236,10 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
         .password-input {
           width: 100%;
-          padding: 16px 16px 16px 48px;
+          padding: 14px 14px 14px 44px;
           border: 2px solid #e2e8f0;
           border-radius: 12px;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 500;
           background: white;
           box-sizing: border-box;
@@ -257,10 +266,10 @@ export function PasswordProtection({ onPasswordCorrect }) {
           align-items: center;
           gap: 8px;
           color: #dc2626;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 500;
-          margin-bottom: 20px;
-          padding: 12px 16px;
+          margin-bottom: 16px;
+          padding: 10px 14px;
           background: #fef2f2;
           border: 1px solid #fecaca;
           border-radius: 8px;
@@ -268,12 +277,12 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
         .submit-button {
           width: 100%;
-          padding: 16px 24px;
+          padding: 14px 20px;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
           border: none;
           border-radius: 12px;
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.2s ease;
@@ -281,7 +290,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
           align-items: center;
           justify-content: center;
           gap: 8px;
-          min-height: 52px;
+          min-height: 48px;
         }
 
         .submit-button:hover:not(:disabled) {
@@ -314,14 +323,15 @@ export function PasswordProtection({ onPasswordCorrect }) {
         }
 
         .footer-section {
-          padding: 20px 40px 30px 40px;
+          padding: 16px 32px 24px 32px;
           text-align: center;
           background: #f8fafc;
           border-top: 1px solid #f1f5f9;
+          flex-shrink: 0;
         }
 
         .footer-text {
-          font-size: 14px;
+          font-size: 13px;
           color: #64748b;
           margin: 0;
         }
@@ -333,25 +343,27 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
           .password-protection-card {
             max-width: 100%;
+            aspect-ratio: auto;
+            min-height: 420px;
           }
 
           .header-section,
           .security-notice,
           .form-section {
-            padding-left: 24px;
-            padding-right: 24px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
 
           .footer-section {
-            padding: 16px 24px 24px 24px;
+            padding: 12px 20px 20px 20px;
           }
 
           .title {
-            font-size: 24px;
+            font-size: 22px;
           }
 
           .security-title {
-            font-size: 18px;
+            font-size: 16px;
           }
         }
       `}</style>

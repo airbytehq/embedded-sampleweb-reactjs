@@ -51,6 +51,48 @@ app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', message: 'Backend server is running' });
 });
 
+// Password authentication endpoint
+app.post('/api/auth/password', (req, res) => {
+    const { password } = req.body;
+
+    if (!password) {
+        return res.status(400).json({ error: 'Password is required' });
+    }
+
+    // Get the required password from environment variable
+    const requiredPassword = process.env.SONAR_WEBAPP_PASSWORD;
+
+    if (!requiredPassword) {
+        console.error('SONAR_WEBAPP_PASSWORD environment variable not set');
+        return res.status(500).json({ error: 'Server configuration error' });
+    }
+
+    // Verify password
+    if (password === requiredPassword) {
+        // Set a password authentication cookie
+        const isProduction = process.env.NODE_ENV === 'production';
+        res.cookie('webappAuth', 'authenticated', {
+            maxAge: 24 * 60 * 60 * 1000, // 24 hours
+            httpOnly: true,
+            secure: isProduction,
+            sameSite: 'strict'
+        });
+        res.status(200).json({ success: true });
+    } else {
+        res.status(401).json({ error: 'Invalid password' });
+    }
+});
+
+// Password check endpoint
+app.get('/api/auth/check', (req, res) => {
+    const webappAuth = req.cookies.webappAuth;
+    if (webappAuth === 'authenticated') {
+        res.json({ authenticated: true });
+    } else {
+        res.json({ authenticated: false });
+    }
+});
+
 // Endpoint to handle logout
 app.post('/api/logout', (req, res) => {
     res.clearCookie('userEmail', {
