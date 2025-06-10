@@ -1,9 +1,9 @@
 # Sonar (Airbyte Embedded) Demo App
 
-A full-stack React application with Vercel serverless functions backend, demonstrating Airbyte Embedded integration. Based on [the react sample app](https://github.com/airbytehq/embedded-sampleweb-reactjs), this instance is optimized for Vercel deployment with serverless architecture.
+A full-stack React application with Vercel serverless functions backend, demonstrating Airbyte Embedded integration. For an overview and guided tutorial of using this sample app, please check out the (Airbyte Embedded docs home)[https://docs.airbyte.com/embedded/]
 
-## 🌐 Live Demo
-You can access the app via https://sonar-demoapp.vercel.app/
+
+
 
 ## 🏗️ Architecture
 
