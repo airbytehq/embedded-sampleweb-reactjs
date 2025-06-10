@@ -41,52 +41,62 @@ export function PasswordProtection({ onPasswordCorrect }) {
 
   return (
     <div className="password-protection">
-      <img 
-        src="/octavia-sonar.png" 
-        alt="Octavia Sonar" 
-        className="logo"
-      />
-      
-      <h1 className="title">Sonar Demo</h1>
-      
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="password-input"
-          placeholder="Enter password"
-          required
-          disabled={isLoading}
-          autoFocus
+      <div className="content-container">
+        <img 
+          src="/octavia-sonar.png" 
+          alt="Octavia Sonar" 
+          className="logo"
         />
         
-        {error && (
-          <div className="error-message">
-            {error}
-          </div>
-        )}
+        <h1 className="title">Sonar Demo</h1>
         
-        <button
-          type="submit"
-          className="submit-button"
-          disabled={isLoading || !password.trim()}
-        >
-          {isLoading ? 'Verifying...' : 'Enter'}
-        </button>
-      </form>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="password-input"
+            placeholder="Enter password"
+            required
+            disabled={isLoading}
+            autoFocus
+          />
+          
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
+          
+          <button
+            type="submit"
+            className="submit-button"
+            disabled={isLoading || !password.trim()}
+          >
+            {isLoading ? 'Verifying...' : 'Enter'}
+          </button>
+        </form>
+      </div>
 
       <style jsx>{`
         .password-protection {
           min-height: 100vh;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 24px;
-          padding: 20px;
-          background: #f5f5f5;
+          background: white;
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .content-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
+          padding: 40px;
+          border-radius: 12px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          background: white;
         }
 
         .logo {
