@@ -40,138 +40,62 @@ export function PasswordProtection({ onPasswordCorrect }) {
   };
 
   return (
-    <div className="password-protection">
-      <div className="content-container">
+    <div className="text-center">
+      <div className="mb-4">
         <img 
           src="/octavia-sonar.png" 
           alt="Octavia Sonar" 
-          className="logo"
+          style={{
+            width: '64px',
+            height: '64px',
+            borderRadius: 'var(--border-radius)',
+            margin: '0 auto',
+            display: 'block'
+          }}
         />
-        
-        <h1 className="title">Sonar Demo</h1>
-        
-        <form onSubmit={handleSubmit}>
+      </div>
+      
+      <h1 className="text-center mb-4">Sonar Demo</h1>
+      
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="password-input"
+            className="input"
             placeholder="Enter password"
             required
             disabled={isLoading}
             autoFocus
           />
-          
-          {error && (
-            <div className="error-message">
+        </div>
+        
+        {error && (
+          <div className="form-group">
+            <div className="text-sm" style={{ color: 'var(--accent-danger)' }}>
               {error}
             </div>
-          )}
-          
+          </div>
+        )}
+        
+        <div className="form-group">
           <button
             type="submit"
-            className="submit-button"
+            className="btn btn-primary"
             disabled={isLoading || !password.trim()}
           >
-            {isLoading ? 'Verifying...' : 'Enter'}
+            {isLoading ? (
+              <>
+                <div className="spinner" />
+                Verifying...
+              </>
+            ) : (
+              'Enter'
+            )}
           </button>
-        </form>
-      </div>
-
-      <style jsx>{`
-        .password-protection {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: white;
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-
-        .content-container {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 24px;
-          padding: 40px;
-          border-radius: 12px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          background: white;
-        }
-
-        .logo {
-          width: 64px;
-          height: 64px;
-          border-radius: 12px;
-        }
-
-        .title {
-          font-size: 32px;
-          font-weight: 600;
-          color: #333;
-          margin: 0;
-          text-align: center;
-        }
-
-        form {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-          width: 100%;
-          max-width: 300px;
-        }
-
-        .password-input {
-          padding: 16px;
-          border: 2px solid #e0e0e0;
-          border-radius: 8px;
-          font-size: 16px;
-          background: white;
-          transition: border-color 0.2s ease;
-        }
-
-        .password-input:focus {
-          outline: none;
-          border-color: #007bff;
-        }
-
-        .password-input:disabled {
-          background: #f8f9fa;
-          cursor: not-allowed;
-        }
-
-        .password-input::placeholder {
-          color: #999;
-        }
-
-        .error-message {
-          color: #dc3545;
-          font-size: 14px;
-          text-align: center;
-          margin: 0;
-        }
-
-        .submit-button {
-          padding: 16px;
-          background: #007bff;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          font-size: 16px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: background-color 0.2s ease;
-        }
-
-        .submit-button:hover:not(:disabled) {
-          background: #0056b3;
-        }
-
-        .submit-button:disabled {
-          background: #ccc;
-          cursor: not-allowed;
-        }
-      `}</style>
+        </div>
+      </form>
     </div>
   );
 }
