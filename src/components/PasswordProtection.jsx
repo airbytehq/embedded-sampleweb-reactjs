@@ -55,7 +55,7 @@ export function PasswordProtection({ onPasswordCorrect }) {
         />
       </div>
       
-      <h1 className="text-center mb-4">Sonar Demo</h1>
+      <h1 className="text-center mb-4">Airbyte Embedded Demo</h1>
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
