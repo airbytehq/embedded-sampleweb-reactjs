@@ -51,7 +51,7 @@ api/
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd sonar-demoapp
+   cd embedded-sampleweb-reactjs
    ```
 
 2. **Install dependencies**
@@ -60,7 +60,7 @@ api/
    ```
 
 3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
+   Create a `.env` file in the root directory:
    ```bash
    # Frontend origin
    SONAR_ALLOWED_ORIGIN=http://localhost:5173
@@ -81,8 +81,17 @@ api/
    ```
 
 4. **Run the development server**
+
+  ```bash
+   # Start the backend 
+   cd server/
+   npm install
+   npm start
+   ```
+
    ```bash
    # Start the frontend (React + Vite)
+   npm install
    npm run dev
    ```
    

@@ -51,14 +51,14 @@ fi
 
 # Create connection template that will replicate data to S3
 echo "Creating connection template for S3..."
-CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.com/v1/config_templates/connections' \
+CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.ai/api/v1/embedded/config_templates/connections/' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
     -d "{
-      \"destinationName\": \"S3-embedded\", 
-      \"organizationId\": \"${SONAR_AIRBYTE_ORGANIZATION_ID}\",
-      \"destinationActorDefinitionId\": \"4816b78f-1489-44c1-9060-4b19d5fa9362\",
-      \"destinationConfiguration\": {
+      \"organization_id\": \"${SONAR_AIRBYTE_ORGANIZATION_ID}\",
+      \"destination_name\": \"S3-embedded-tmp2\", 
+      \"destination_actor_definition_id\": \"4816b78f-1489-44c1-9060-4b19d5fa9362\",
+      \"destination_config\": {
         \"access_key_id\": \"${SONAR_AWS_ACCESS_KEY}\",
         \"secret_access_key\": \"${SONAR_AWS_SECRET_ACCESS_KEY}\",
         \"s3_bucket_name\": \"${SONAR_S3_BUCKET}\",
@@ -70,13 +70,15 @@ CONN_RESPONSE=$(curl -X POST 'https://api.airbyte.com/v1/config_templates/connec
                 \"compression_type\": \"No Compression\"
             },
         \"flattening\": \"No flattening\"
-      }
-    }
+      },
+      \"cron_expression\": \"string\", 
+      \"non_breaking_changes_preference\": \"ignore\", 
+      \"sync_on_create\": true
   }
 }")
 
 # Print the full response for debugging
-echo "Connection template response:"
+echo "Raw Connection template response:"
 echo "$CONN_RESPONSE" | jq '.'
 
 # Check if connection creation was successful
