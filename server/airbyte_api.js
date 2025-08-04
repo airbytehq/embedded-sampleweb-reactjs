@@ -39,7 +39,7 @@ async function generateWidgetToken(externalUserId) {
     try {
         const accessToken = await getAccessToken();
 
-        const response = await fetch('https://api.airbyte.com/v1/embedded/widget_token', {
+        const response = await fetch('https://api.airbyte.ai/api/v1/embedded/scoped-token', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
