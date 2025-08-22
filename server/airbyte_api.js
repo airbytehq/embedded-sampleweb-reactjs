@@ -47,9 +47,9 @@ async function generateWidgetToken(externalUserId) {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                externalUserId: externalUserId,
-                organizationId: process.env.SONAR_AIRBYTE_ORGANIZATION_ID,
-                allowedOrigin: process.env.SONAR_ALLOWED_ORIGIN,
+                external_user_id: externalUserId,
+                organization_id: process.env.SONAR_AIRBYTE_ORGANIZATION_ID,
+                allowed_origin: process.env.SONAR_ALLOWED_ORIGIN,
             })
         });
 
